@@ -1,0 +1,21 @@
+version: "3.9"
+x-default-env: &default-env
+  LOG_LEVEL: trace
+services:
+  client:
+    build:
+      context: .
+      dockerfile: docker/client
+    depends_on:
+      - server
+    environment:
+      <<: *default-env
+      SERVER: server:8000
+  server:
+    build:
+      context: .
+      dockerfile: docker/server
+    environment:
+      <<: *default-env
+    volumes:
+      - ./data:/data:ro
