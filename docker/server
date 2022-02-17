@@ -1,0 +1,17 @@
+FROM golang:1.17.7-alpine3.15 AS build
+
+RUN mkdir -p /src && apk add build-base
+
+WORKDIR /src
+
+COPY src .
+
+RUN go test ./... && go build -o app cmd/server/main.go
+
+FROM alpine:3.15.0
+
+COPY --from=build /src/app .
+
+EXPOSE 8000
+
+ENTRYPOINT [ "./app" ]
