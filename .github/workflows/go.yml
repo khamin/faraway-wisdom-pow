@@ -10,6 +10,8 @@ on:
 
 jobs:
   build:
+    env:
+      workdir: src
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -20,10 +22,13 @@ jobs:
         go-version: 1.17
 
     - name: Test
-      run: go test -v src/...
+      run: go test -v ./...
+      working-directory: ${{env.workdir}}
 
     - name: Build server
-      run: go build -v src/server/main.go
+      run: go build -v cmd/server/main.go
+      working-directory: ${{env.workdir}}
   
     - name: Build client
-      run: go build -v src/client/main.go
+      run: go build -v cmd/client/main.go
+      working-directory: ${{env.workdir}}
