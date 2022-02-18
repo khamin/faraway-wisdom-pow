@@ -15,7 +15,7 @@ The computing power of clients can reach a difference of 30 times in single-thre
 Also, the resolution of some tasks can be significantly accelerated using GPU or ASIC.
 This makes CPU-bound functions inefficient in terms of client equality.
 
-[Equihash](https://en.wikipedia.org/wiki/Equihash) [looks fair](whitepaper.pdf) and fits our needs.
+[Equihash](https://en.wikipedia.org/wiki/Equihash) 102,5 [looks](whitepaper.pdf) fair.
 
 # Run
 

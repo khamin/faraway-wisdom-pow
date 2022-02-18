@@ -30,11 +30,10 @@ func main() {
 			quote, err := request.Run(server)
 
 			if err != nil {
-				logrus.WithField("err", err).Error("request failed")
-				return
+				panic(err)
 			}
 
-			logrus.WithField("quote", string(quote)).Info("received")
+			logrus.WithField("quote", string(quote)).Info("quote received")
 		}()
 	}
 
