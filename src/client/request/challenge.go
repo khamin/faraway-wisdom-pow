@@ -25,7 +25,11 @@ func challenge(conn net.Conn) (bool, error) {
 		return false, err
 	}
 
-	logrus.WithField("seed", seed).Trace("seed received")
+	logrus.WithFields(logrus.Fields{
+		"k":    k,
+		"n":    n,
+		"seed": seed,
+	}).Debug("challenge received")
 
 	config := equihash.Config{
 		K:    k,
@@ -43,7 +47,6 @@ func challenge(conn net.Conn) (bool, error) {
 	logrus.WithFields(logrus.Fields{
 		"inputs": proof.Inputs,
 		"nonce":  proof.Config.Nonce,
-		"seed":   proof.Config.Seed,
 		"time":   time.Since(start),
 	}).Debug("proof found")
 
