@@ -106,7 +106,7 @@ func (srv *Server) handler(conn net.Conn) {
 		return
 	}
 
-	logFields.Error("challenge passed")
+	logFields.Debug("challenge passed")
 	quote := srv.config.Quotes.Pick()
 
 	if err := write(conn, BytesOrder, quote.Format()); err != nil {
