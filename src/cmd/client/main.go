@@ -3,7 +3,7 @@ package main
 import (
 	"flag"
 	"sync"
-	"wisdom/client/request"
+	"wisdom/client"
 	"wisdom/config"
 
 	"github.com/sirupsen/logrus"
@@ -27,7 +27,7 @@ func main() {
 		go func() {
 			defer wg.Done()
 
-			quote, err := request.Run(server)
+			quote, err := client.Run(server)
 
 			if err != nil {
 				panic(err)
