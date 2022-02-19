@@ -17,7 +17,7 @@ import (
 )
 
 func main() {
-	flag.Duration("stop_timeout", 5*time.Second, "Shutdown timeout")
+	flag.Duration("stop_timeout", 10*time.Second, "Shutdown timeout")
 	flag.String("addr", "0.0.0.0:8000", "Bind address")
 	flag.String("quotes", "/data/quotes.json", "Quotes input file")
 
