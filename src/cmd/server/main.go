@@ -9,8 +9,8 @@ import (
 	"syscall"
 	"time"
 	"wisdom/config"
-	"wisdom/server/quotes"
-	"wisdom/server/server"
+	"wisdom/quotes"
+	"wisdom/server"
 
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/viper"

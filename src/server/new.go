@@ -3,7 +3,7 @@ package server
 import (
 	"net"
 	"time"
-	"wisdom/server/quotes"
+	"wisdom/quotes"
 )
 
 // Represents server config.
