@@ -1,3 +1,5 @@
+[![build](https://github.com/khamin/faraway-wisdom-pow/actions/workflows/go.yml/badge.svg)](https://github.com/khamin/faraway-wisdom-pow/actions/workflows/go.yml)
+
 # About
 
 Design and implement "Word of Wisdom" TCP server:
@@ -16,6 +18,7 @@ Also, the resolution of some tasks can be significantly accelerated using GPU or
 This makes CPU-bound functions inefficient in terms of client equality.
 
 [Equihash](https://en.wikipedia.org/wiki/Equihash) 102,5 [looks](whitepaper.pdf) fair.
+[Reference C++ implementation](https://github.com/khovratovich/equihash) has been rewritten to golang.
 
 # Run
 
