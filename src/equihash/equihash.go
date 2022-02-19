@@ -6,8 +6,6 @@ import (
 	"golang.org/x/crypto/blake2b"
 )
 
-const SeedLen = 4
-
 const maxNonce = 0xFFFFF
 const listLen = 5
 

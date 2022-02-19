@@ -28,21 +28,19 @@ func (srv *Server) challenge(conn net.Conn) (bool, error) {
 		return false, err
 	}
 
-	seed := equihash.NewSeed()
+	e := equihash.New(N, K, nil)
 
-	if err := write(conn, BytesOrder, seed); err != nil {
+	if err := write(conn, BytesOrder, e.Config.Seed); err != nil {
 		return false, err
 	}
 
 	logFields.WithFields(logrus.Fields{
-		"k":    K,
-		"n":    N,
-		"seed": seed,
+		"k":    e.Config.K,
+		"n":    e.Config.N,
+		"seed": e.Config.Seed,
 	}).Info("challenge sent")
 
-	var nonce uint32
-
-	if err := read(conn, BytesOrder, &nonce); err != nil {
+	if err := read(conn, BytesOrder, &e.Config.Nonce); err != nil {
 		return false, err
 	}
 
@@ -52,15 +50,8 @@ func (srv *Server) challenge(conn net.Conn) (bool, error) {
 		return false, err
 	}
 
-	config := equihash.Config{
-		K:     K,
-		N:     N,
-		Nonce: nonce,
-		Seed:  seed,
-	}
-
 	proof := equihash.Proof{
-		Config: config,
+		Config: e.Config,
 		Inputs: inputs[:],
 	}
 

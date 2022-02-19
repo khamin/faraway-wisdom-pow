@@ -5,21 +5,8 @@ import (
 )
 
 func TestEquihash(t *testing.T) {
-	var n, k uint32 = 102, 5
-
-	seed := NewSeed()
-
-	config := Config{
-		K:    k,
-		N:    n,
-		Seed: seed,
-	}
-
-	hash := Equihash{
-		Config: config,
-	}
-
-	proof := hash.FindProof()
+	e := New(102, 5, nil)
+	proof := e.FindProof()
 
 	if len(proof.Inputs) == 0 {
 		t.Error("solutions not found")

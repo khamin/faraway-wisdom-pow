@@ -19,7 +19,7 @@ func challenge(conn net.Conn) (bool, error) {
 		return false, err
 	}
 
-	var seed [equihash.SeedLen]uint32
+	var seed equihash.Seed
 
 	if err := read(conn, BytesOrder, &seed); err != nil {
 		return false, err
@@ -31,18 +31,10 @@ func challenge(conn net.Conn) (bool, error) {
 		"seed": seed,
 	}).Debug("challenge received")
 
-	config := equihash.Config{
-		K:    k,
-		N:    n,
-		Seed: seed,
-	}
-
-	hash := equihash.Equihash{
-		Config: config,
-	}
+	e := equihash.New(n, k, &seed)
 
 	start := time.Now()
-	proof := hash.FindProof()
+	proof := e.FindProof()
 
 	logrus.WithFields(logrus.Fields{
 		"inputs": proof.Inputs,
