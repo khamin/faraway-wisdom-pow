@@ -3,23 +3,27 @@ package equihash
 import (
 	"bytes"
 	"encoding/binary"
-	"reflect"
 	"unsafe"
 )
 
+var bytesOrder = binary.LittleEndian
+
+const u32size = int(unsafe.Sizeof(uint32(0)))
+
 func fromBytes(in []byte) []uint32 {
 	r := bytes.NewReader(in)
-	out := make([]uint32, len(in)/4)
-	binary.Read(r, binary.LittleEndian, &out)
+
+	out := make([]uint32, len(in)/u32size)
+	binary.Read(r, bytesOrder, &out)
 	return out
 }
 
 func toBytes(in []uint32) []byte {
-	ptr := unsafe.Pointer(&in)
-	hdr := *(*reflect.SliceHeader)(ptr)
+	b := make([]byte, len(in)*u32size)
 
-	hdr.Len *= 4
-	hdr.Cap *= 4
+	for i, u := range in {
+		bytesOrder.PutUint32(b[u32size*i:], uint32(u))
+	}
 
-	return *(*[]byte)(unsafe.Pointer(&hdr))
+	return b
 }
