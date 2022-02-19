@@ -1,4 +1,5 @@
 [![build](https://github.com/khamin/faraway-wisdom-pow/actions/workflows/go.yml/badge.svg)](https://github.com/khamin/faraway-wisdom-pow/actions/workflows/go.yml)
+[![codecov](https://codecov.io/gh/khamin/faraway-wisdom-pow/branch/master/graph/badge.svg?token=7J0ECI8AO1)](https://codecov.io/gh/khamin/faraway-wisdom-pow)
 
 # About
 
