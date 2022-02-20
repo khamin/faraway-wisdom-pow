@@ -38,11 +38,11 @@ func challenge(conn net.Conn) (bool, error) {
 
 	logrus.WithFields(logrus.Fields{
 		"inputs": proof.Inputs,
-		"nonce":  proof.Config.Nonce,
+		"nonce":  proof.Nonce,
 		"time":   time.Since(start),
 	}).Debug("proof found")
 
-	if err := write(conn, BytesOrder, proof.Config.Nonce); err != nil {
+	if err := write(conn, BytesOrder, proof.Nonce); err != nil {
 		return false, err
 	}
 

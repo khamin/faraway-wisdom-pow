@@ -14,6 +14,8 @@ const forkMultiplier = 3
 
 type Equihash struct {
 	Config Config
+	Nonce  uint32
+
 	filled []uint32
 	forks  []Forks
 	sols   []Proof
@@ -21,14 +23,14 @@ type Equihash struct {
 }
 
 func (e *Equihash) FindProof() Proof {
-	e.Config.Nonce = 1
+	e.Nonce = 1
 
 	for {
-		if e.Config.Nonce >= maxNonce {
+		if e.Nonce >= maxNonce {
 			break
 		}
 
-		e.Config.Nonce++
+		e.Nonce++
 
 		e.init()
 		e.fill()
@@ -63,6 +65,7 @@ func (e *Equihash) FindProof() Proof {
 	return Proof{
 		Config: e.Config,
 		Inputs: make([]uint32, 0),
+		Nonce:  e.Nonce,
 	}
 }
 
@@ -75,7 +78,7 @@ func (e *Equihash) fill() {
 		input[i] = e.Config.Seed[i]
 	}
 
-	input[SeedLen] = e.Config.Nonce
+	input[SeedLen] = e.Nonce
 	input[SeedLen+1] = 0
 
 	for i := uint32(0); i < length; i++ {
@@ -169,6 +172,7 @@ func (e *Equihash) resolveCollisions(store bool) {
 						e.sols = append(e.sols, Proof{
 							Config: e.Config,
 							Inputs: inputs,
+							Nonce:  e.Nonce,
 						})
 					}
 				} else { // Resolve.

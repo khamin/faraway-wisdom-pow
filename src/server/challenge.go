@@ -40,7 +40,7 @@ func (srv *Server) challenge(conn net.Conn) (bool, error) {
 		"seed": e.Config.Seed,
 	}).Info("challenge sent")
 
-	if err := read(conn, BytesOrder, &e.Config.Nonce); err != nil {
+	if err := read(conn, BytesOrder, &e.Nonce); err != nil {
 		return false, err
 	}
 
@@ -53,6 +53,7 @@ func (srv *Server) challenge(conn net.Conn) (bool, error) {
 	proof := equihash.Proof{
 		Config: e.Config,
 		Inputs: inputs[:],
+		Nonce:  e.Nonce,
 	}
 
 	start := time.Now()
@@ -60,7 +61,7 @@ func (srv *Server) challenge(conn net.Conn) (bool, error) {
 
 	logFields.WithFields(logrus.Fields{
 		"inputs": proof.Inputs,
-		"nonce":  proof.Config.Nonce,
+		"nonce":  proof.Nonce,
 		"seed":   proof.Config.Seed,
 		"time":   time.Since(start),
 	}).Debug("proof test")

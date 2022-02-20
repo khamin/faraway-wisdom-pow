@@ -3,10 +3,9 @@ package equihash
 const SeedLen = 4
 
 type Config struct {
-	K     uint32
-	N     uint32
-	Nonce uint32
-	Seed  Seed
+	K    uint32
+	N    uint32
+	Seed Seed
 }
 
 type Tuple struct {

@@ -4,6 +4,7 @@ import "golang.org/x/crypto/blake2b"
 
 type Proof struct {
 	Config Config
+	Nonce  uint32
 	Inputs []uint32
 }
 
@@ -14,7 +15,7 @@ func (p *Proof) Test() bool {
 		input[i] = p.Config.Seed[i]
 	}
 
-	input[SeedLen] = p.Config.Nonce
+	input[SeedLen] = p.Nonce
 	input[SeedLen+1] = 0
 
 	blocks := make([]uint32, p.Config.K+1)
