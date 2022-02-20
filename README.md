@@ -21,8 +21,15 @@ This makes CPU-bound functions inefficient in terms of client equality.
 [Equihash](https://en.wikipedia.org/wiki/Equihash) 102,5 [looks](whitepaper.pdf) fair.
 [Reference C++ implementation](https://github.com/khovratovich/equihash) has been rewritten to golang.
 
-# Run
+Run:
 
 ```sh
 docker-compose up --build
+```
+
+Benchmark:
+
+```sh
+cd src
+go test ./... -bench=. -benchmem
 ```
