@@ -6,7 +6,7 @@ WORKDIR /src
 
 COPY src .
 
-RUN go test ./... && go build -o app cmd/client/main.go
+RUN go vet ./... && go test ./... && go build -o app cmd/client/main.go
 
 FROM alpine:3.15.0
 
